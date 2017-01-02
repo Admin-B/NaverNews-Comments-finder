@@ -1,6 +1,5 @@
 # naver-news-searcher
 <img src="http://i.imgur.com/HhnNImy.png"><br/>
-<img src="http://i.imgur.com/So4uMhL.jpg"></br>
 <b>find comments</b><br/>
 http://localhost/
 
