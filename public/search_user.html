@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Index::</title>
+		<meta charset="utf8">
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="./js/jquery-3.1.1.min.js"></script>
+		<link href="./css/stylesheet.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<section class="container">
+			<div class="target-box"></div>
+			<section class="search-box">
+				<div class="input-wrap">
+					<input id="search-news-input" type="text" placeholder="[유저검색] 뉴스의 URL을 입력해주세요.">
+				</div>
+				<div class="btn-wrap">
+					<div id="search-news-btn" data-type="news">검색</div>
+				</div>
+			</section>
+			<div class="sort-box-wrap">
+				<aritcle class="sort-box" data-type="favorite">인기 순</aritcle>
+				<aritcle class="sort-box active" data-type="new">최신 순</aritcle>
+			</div>
+			<div class="content-box">
+				<h3>
+				URL을 입력해주세요.<br/>
+				</h3>
+			</div>
+		</section>
+		<script type="text/javascript" src="./js/main.js"></script>
+		<script>
+			var searchType=1;
+			//hash 처리
+			window.addEventListener('hashchange',applyID,false);
+			var targetBox=$(".target-box");
+
+			function applyID(){
+				var hash=location.hash.substr(1,location.hash.length);
+				if(!hash){
+					ID=undefined;
+					targetBox.hide();
+					return;
+				}
+				targetBox.html('');
+				targetBox.show();
+				targetBox.append(""+hash+" <a href='#'>취소</a>");
+
+				ID=hash;
+			}
+			</script>
+
+	</body>
+</html>

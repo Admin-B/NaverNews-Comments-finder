@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Index::</title>
+		<meta charset="utf8">
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="./js/jquery-3.1.1.min.js"></script>
+		<link href="./css/stylesheet.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<section class="container">
+			<section class="search-box">
+				<div class="input-wrap">
+					<input id="search-news-input" type="text" placeholder="[뉴스검색] 네이버 뉴스의 URL을 입력해주세요.">
+				</div>
+				<div class="btn-wrap">
+					<div id="search-news-btn">검색</div>
+				</div>
+			</section>
+			<div class="sort-box-wrap">
+				<aritcle class="sort-box" data-type="favorite">인기 순</aritcle>
+				<aritcle class="sort-box active" data-type="new">최신 순</aritcle>
+			</div>
+			<div class="content-box">
+				<h3>
+				URL을 입력해주세요.<br/>
+				</h3>
+			</div>
+		</section>
+		<script type="text/javascript" src="./js/main.js"></script>
+	</body>
+</html>
