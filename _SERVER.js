@@ -49,8 +49,16 @@ function OnSocket(){
 
 		getCommentsData_by_id(oid,aid,sortType);
 	}
-
-	function getCommentsData_by_id(oid,aid,sortType){
+	//getCommentsData_by_id 함수를 이용 할땐 page,arr 매개변수 입력을 하지마세요.
+	var MAX_PAGE=1000;
+	function getCommentsData_by_id(oid,aid,sortType,page,arr){
+		if(MAX_PAGE<=page){
+			return;
+		}
+		if(!Array.isArray(arr)){
+			arr=[];
+			page=1;
+		}
 		if(isNaN(oid) || isNaN(aid)){
 			return;
 		}
@@ -59,7 +67,7 @@ function OnSocket(){
 			sortType="new";
 		}
 
-		var url="https://apis.naver.com/commentBox/cbox/web_naver_list_jsonp.json?ticket=news&templateId=default_politics&pool=cbox5&lang=ko&country=KR&objectId=news"+oid+"%2C"+aid+"&categoryId=&pageSize=10000&indexSize=10&groupId=&page=1&initialize=true&userType=&useAltSort=true&replyPageSize=20&moveTo=&sort="+sortType
+		var url="https://apis.naver.com/commentBox/cbox/web_naver_list_jsonp.json?ticket=news&templateId=default_politics&pool=cbox5&lang=ko&country=KR&objectId=news"+oid+"%2C"+aid+"&categoryId=&pageSize=100&indexSize=10&groupId=&page="+page+"&initialize=true&userType=&useAltSort=true&replyPageSize=20&moveTo=&sort="+sortType
 		var option={
 			'url':url,
 			'headers':{
@@ -70,7 +78,16 @@ function OnSocket(){
 			if(err){
 				throw err;
 			}
-			gSocket.emit("sendCommentsData",{'body':body});
+			var data=JSON.parse(body.substr(10,body.length-12));
+			var commentList=data.result.commentList;
+
+			if(commentList.length==0){
+				gSocket.emit("sendCommentsData",arr);
+			}else{
+				arr=arr.concat(commentList);
+				page++;
+				getCommentsData_by_id(oid,aid,sortType,page,arr);
+			}
 		});
 	}
 
